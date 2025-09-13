@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Shirt, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -6,10 +7,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'Home', href: '#' },
-    { label: 'How It Works', href: '#how-it-works' },
-    { label: 'Products', href: '#products' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Home', href: '/' },
+    { label: 'How It Works', href: '/how-it-works' },
+    { label: 'Products', href: '/products' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -18,7 +19,7 @@ const Header = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-3 group cursor-pointer">
+            <Link to="/" className="flex items-center space-x-3 group cursor-pointer">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-primary rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                 <div className="relative bg-gradient-primary p-3 rounded-full shadow-glow">
@@ -28,27 +29,29 @@ const Header = () => {
               <div className="text-display-sm bg-gradient-primary bg-clip-text text-transparent font-black">
                 FitMe
               </div>
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.href}
                   className="text-foreground hover:text-primary font-medium transition-all duration-300 hover:scale-105 relative group"
                 >
                   <span className="relative z-10">{item.label}</span>
                   <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 rounded-lg blur-sm transition-opacity duration-300 -z-10"></div>
-                </a>
+                </Link>
               ))}
             </nav>
 
             {/* CTA Button - Desktop */}
             <div className="hidden md:block">
-              <Button className="bg-gradient-primary hover:shadow-glow hover:scale-105 transition-all duration-300 px-8 py-3 font-semibold">
-                Try Virtual Fitting
-              </Button>
+              <Link to="/measurements">
+                <Button className="bg-gradient-primary hover:shadow-glow hover:scale-105 transition-all duration-300 px-8 py-3 font-semibold">
+                  Try Virtual Fitting
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -65,18 +68,20 @@ const Header = () => {
             <div className="md:hidden mt-4 p-4 glass-intense rounded-2xl animate-scale-in">
               <nav className="flex flex-col space-y-4">
                 {navItems.map((item, index) => (
-                  <a
+                  <Link
                     key={item.label}
-                    href={item.href}
+                    to={item.href}
                     className="text-foreground hover:text-primary font-medium transition-colors duration-300 p-3 rounded-lg hover:bg-primary-light hover:bg-opacity-20"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 ))}
-                <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300 mt-4">
-                  Try Virtual Fitting
-                </Button>
+                <Link to="/measurements">
+                  <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300 mt-4 w-full">
+                    Try Virtual Fitting
+                  </Button>
+                </Link>
               </nav>
             </div>
           )}
